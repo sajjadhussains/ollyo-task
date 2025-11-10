@@ -51,7 +51,7 @@ export default function MainLayout() {
     displayToast();
   };
 
-  const showActions = isPowerOn && speed > 0;
+  const showActions = droppedItem !== null && isPowerOn && speed > 0;
 
   return (
     <div className="layout-container">
@@ -67,6 +67,7 @@ export default function MainLayout() {
           title="Testing Canvas"
           showActions={showActions}
           onSaveClick={openModal}
+          onClearClick={removeDevice}
           menuItems={MENU_ITEMS}
           selectedKey={selectedKey}
           onItemClick={handleItemClick}
@@ -84,7 +85,6 @@ export default function MainLayout() {
             speed={speed}
             onTogglePower={togglePower}
             onSpeedChange={handleSpeedChange}
-            onRemove={removeDevice}
             onDragOver={handleDragOver}
             onDrop={handleDrop}
           />

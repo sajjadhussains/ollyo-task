@@ -4,6 +4,7 @@ interface HeaderProps {
   title: string;
   showActions: boolean;
   onSaveClick: () => void;
+  onClearClick: () => void;
   menuItems: MenuItem[];
   selectedKey?: string;
   onItemClick: (key: string) => void;
@@ -14,6 +15,7 @@ export const Header = ({
   title,
   showActions,
   onSaveClick,
+  onClearClick,
   menuItems,
   selectedKey,
   onItemClick,
@@ -26,7 +28,9 @@ export const Header = ({
       <div className="header-actions">
         {showActions && (
           <>
-            <button className="header-btn header-clear-btn">Clear</button>
+            <button className="header-btn header-clear-btn" onClick={onClearClick}>
+              Clear
+            </button>
             <button className="header-btn header-save-btn" onClick={onSaveClick}>
               Save Preset
             </button>

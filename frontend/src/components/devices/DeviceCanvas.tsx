@@ -9,7 +9,6 @@ interface DeviceCanvasProps {
   speed: number;
   onTogglePower: () => void;
   onSpeedChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onRemove: () => void;
   onDragOver: (e: React.DragEvent) => void;
   onDrop: (e: React.DragEvent) => void;
 }
@@ -20,7 +19,6 @@ export const DeviceCanvas = ({
   speed,
   onTogglePower,
   onSpeedChange,
-  onRemove,
   onDragOver,
   onDrop,
 }: DeviceCanvasProps) => {
@@ -40,7 +38,6 @@ export const DeviceCanvas = ({
                 speed={speed}
                 onTogglePower={onTogglePower}
                 onSpeedChange={onSpeedChange}
-                onRemove={onRemove}
               />
             ) : (
               <LightDevice
@@ -49,7 +46,6 @@ export const DeviceCanvas = ({
                 speed={speed}
                 onTogglePower={onTogglePower}
                 onSpeedChange={onSpeedChange}
-                onRemove={onRemove}
               />
             )}
           </div>

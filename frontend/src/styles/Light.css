@@ -1,6 +1,6 @@
 .light-container {
   position: relative;
-  width: 320px;
+  width: 384px;
   margin: 20px;
   display: flex;
   flex-direction: column;
@@ -9,22 +9,15 @@
 
 .light-visual {
   position: relative;
-  width: 320px;
-  height: 320px;
+  width: 384px;
+  height: 384px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .light-image {
-  width: 200px;
-  height: auto;
-  filter: brightness(0.5);
   transition: filter 0.3s ease;
-}
-
-.light-image.active {
-  filter: brightness(1.2) drop-shadow(0 0 30px rgba(255, 215, 0, 0.6));
 }
 
 .light-label {
@@ -37,17 +30,3 @@
   margin-top: 10px;
 }
 
-@media (max-width: 767px) {
-  .light-container {
-    width: 240px;
-  }
-
-  .light-visual {
-    width: 240px;
-    height: 240px;
-  }
-
-  .light-image {
-    width: 150px;
-  }
-}

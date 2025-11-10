@@ -7,7 +7,6 @@ interface FanDeviceProps {
   speed: number;
   onTogglePower: () => void;
   onSpeedChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onRemove: () => void;
 }
 
 export const FanDevice = ({
@@ -16,15 +15,11 @@ export const FanDevice = ({
   speed,
   onTogglePower,
   onSpeedChange,
-  onRemove,
 }: FanDeviceProps) => {
   const rotationSpeed = isPowerOn && speed > 0 ? 3 - (speed / 100) * 2.8 : 0;
 
   return (
     <div className="fan-container">
-      <button className="remove-btn" onClick={onRemove}>
-        ×
-      </button>
       <div className="fan-visual">
         <div
           className="fan-blades"
