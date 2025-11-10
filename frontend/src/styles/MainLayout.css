@@ -1,0 +1,224 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.layout-container {
+  display: flex;
+  height: 100vh;
+  background-color: #0A101D;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.sidebar {
+  width: 224px;
+  background-color: #1E2939;
+  padding: 16px 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-title {
+  color: white;
+  font-size: 20px;
+  margin-bottom: 16px;
+  margin-left: 10px;
+}
+
+.menu-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  list-style: none;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  color: white;
+  background-color: transparent;
+  border: 1px solid rgba(54, 65, 83, 1);
+  border-radius: 10px;
+  cursor: grab;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.menu-item:active {
+  cursor: grabbing;
+}
+
+.menu-item-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+}
+
+.menu-item:hover {
+  background-color: #FF6666;
+}
+
+.menu-item.active {
+  background-color: #646F7F;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  background-color: #0A101D;
+  padding: 0 24px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-title {
+  color: white;
+  font-size: 20px;
+}
+
+.header-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.header-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.header-clear-btn {
+  background-color: transparent;
+  color: #FF6666;
+  border: 1px solid #FF6666;
+}
+
+.header-clear-btn:hover {
+  background-color: rgba(255, 102, 102, 0.1);
+}
+
+.header-save-btn {
+  background-color: #4299E1;
+  color: white;
+}
+
+.header-save-btn:hover {
+  background-color: #3182CE;
+}
+
+.menu-horizontal {
+  display: none;
+  gap: 6px;
+  list-style: none;
+}
+
+.menu-horizontal .menu-item {
+  padding: 8px 12px;
+  height: 36px;
+  margin-bottom: 0;
+}
+
+.mobile-title-section {
+  display: none;
+  background-color: #0A101D;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(54, 65, 83, 1);
+}
+
+.mobile-title {
+  color: white;
+  font-size: 18px;
+}
+
+.content {
+  flex: 1;
+  padding: 24px 24px 24px 16px;
+  background-color: #0A101D;
+  overflow: auto;
+}
+
+.content-inner {
+  padding: 24px;
+  min-height: 100%;
+  background-color: #1E2939;
+  border: 1px solid rgba(30, 41, 57, 1);
+  border-radius: 14px;
+  position: relative;
+}
+
+.drop-zone {
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.drop-hint {
+  color: #666;
+  font-size: 16px;
+  text-align: center;
+}
+
+.fans-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+.remove-btn {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 24px;
+  height: 24px;
+  background-color: #FF6666;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  z-index: 20;
+  transition: background-color 0.2s;
+}
+
+.remove-btn:hover {
+  background-color: #FF4444;
+}
+
+@media (max-width: 767px) {
+  .sidebar {
+    display: none;
+  }
+
+  .header {
+    padding: 12px 16px;
+    height: auto;
+  }
+
+  .menu-horizontal {
+    display: flex;
+  }
+
+  .mobile-title-section {
+    display: block;
+  }
+}

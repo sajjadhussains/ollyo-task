@@ -1,86 +1,106 @@
 import { useState } from "react";
-import fanIcon from "../../assets/icons/fan-icon.png";
-import lightIcon from "../../assets/icons/light-icon.png";
-import "./MainLayout.css";
-
-const menuItems = [
-  { key: "1", label: "Light", icon: lightIcon },
-  { key: "2", label: "Fan", icon: fanIcon },
-];
+import { Sidebar } from "../ui/Sidebar";
+import { Header } from "../ui/Header";
+import { Modal } from "../ui/Modal";
+import { Toast } from "../ui/Toast";
+import { DeviceCanvas } from "../devices/DeviceCanvas";
+import { useDragAndDrop } from "../../hooks/useDragAndDrop";
+import { useDeviceState } from "../../hooks/useDeviceState";
+import { useModal } from "../../hooks/useModal";
+import { useToast } from "../../hooks/useToast";
+import { MENU_ITEMS } from "../../constants/devices";
+import "../../styles/MainLayout.css";
 
 export default function MainLayout() {
-  const [selectedKey, setSelectedKey] = useState("1");
+  const [selectedKey, setSelectedKey] = useState<string | undefined>();
+  
+  // Custom hooks for state management
+  const {
+    droppedItem,
+    handleDragStart,
+    handleDragOver,
+    handleDrop,
+    removeDevice,
+  } = useDragAndDrop();
+
+  const {
+    isPowerOn,
+    speed,
+    togglePower,
+    handleSpeedChange,
+  } = useDeviceState();
+
+  const {
+    isOpen: isModalOpen,
+    inputValue: presetName,
+    openModal,
+    closeModal,
+    handleInputChange,
+  } = useModal();
+
+  const { isVisible: showToast, showToast: displayToast } = useToast(3000);
+
+  // Event handlers
+  const handleItemClick = (key: string) => {
+    setSelectedKey(key);
+  };
+
+  const handleSavePreset = () => {
+    if (presetName.trim() === "") return;
+    closeModal();
+    displayToast();
+  };
+
+  const showActions = isPowerOn && speed > 0;
 
   return (
-    <>
-      <div className="layout-container">
-        {/* Sidebar - Desktop only */}
-        <aside className="sidebar">
-          <h2 className="sidebar-title">Devices</h2>
-          <ul className="menu-vertical">
-            {menuItems.map((item) => (
-              <li
-                key={item.key}
-                className={`menu-item ${
-                  selectedKey === item.key ? "active" : ""
-                }`}
-                onClick={() => setSelectedKey(item.key)}
-              >
-                <img src={item.icon} alt={item.label} />
-                <span>{item.label}</span>
-              </li>
-            ))}
-          </ul>
-        </aside>
+    <div className="layout-container">
+      <Sidebar
+        menuItems={MENU_ITEMS}
+        selectedKey={selectedKey}
+        onItemClick={handleItemClick}
+        onDragStart={handleDragStart}
+      />
 
-        {/* Main Content */}
-        <div className="main-content">
-          {/* Header */}
-          <header className="header">
-            <h1 className="header-title">
-              <span>Testing Canvas</span>
-            </h1>
+      <div className="main-content">
+        <Header
+          title="Testing Canvas"
+          showActions={showActions}
+          onSaveClick={openModal}
+          menuItems={MENU_ITEMS}
+          selectedKey={selectedKey}
+          onItemClick={handleItemClick}
+          onDragStart={handleDragStart}
+        />
 
-            {/* Horizontal Menu - Mobile only */}
-            <ul className="menu-horizontal">
-              {menuItems.map((item) => (
-                <li
-                  key={item.key}
-                  className={`menu-item ${
-                    selectedKey === item.key ? "active" : ""
-                  }`}
-                  onClick={() => setSelectedKey(item.key)}
-                >
-                  <img src={item.icon} alt={item.label} />
-                  <span>{item.label}</span>
-                </li>
-              ))}
-            </ul>
-          </header>
-
-          {/* Mobile Title Section */}
-          <div className="mobile-title-section">
-            <h2 className="mobile-title">Testing Canvas</h2>
-          </div>
-
-          {/* Content Area */}
-          <main className="content">
-            <div className="content-inner">
-              <h2 style={{ color: "white", marginTop: 0, marginBottom: 16 }}>
-                Content Area
-              </h2>
-              <p style={{ color: "#ccc", marginBottom: 12 }}>
-                Selected Device: {selectedKey === "1" ? "Light" : "Fan"}
-              </p>
-              <p style={{ color: "#999" }}>
-                Resize your browser window to see the responsive behavior. The
-                layout automatically adapts using pure CSS media queries without
-                any JavaScript state management for responsiveness.
-              </p>
-            </div>
-          </main>
+        <div className="mobile-title-section">
+          <h2 className="mobile-title">Testing Canvas</h2>
         </div>
+
+        <main className="content">
+          <DeviceCanvas
+            droppedItem={droppedItem}
+            isPowerOn={isPowerOn}
+            speed={speed}
+            onTogglePower={togglePower}
+            onSpeedChange={handleSpeedChange}
+            onRemove={removeDevice}
+            onDragOver={handleDragOver}
+            onDrop={handleDrop}
+          />
+        </main>
       </div>
-    </>
+
+      <Modal
+        isOpen={isModalOpen}
+        title="Give me a name"
+        value={presetName}
+        onValueChange={handleInputChange}
+        onSave={handleSavePreset}
+        onCancel={closeModal}
+      />
+
+      <Toast isVisible={showToast} message="Preset saved" />
+    </div>
   );
 }

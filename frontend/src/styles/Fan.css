@@ -1,0 +1,150 @@
+.fan-container {
+  position: relative;
+  width: 320px;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.fan-visual {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fan-blades {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  animation: rotate-fan var(--rotation-speed) linear infinite;
+  animation-play-state: var(--animation-state);
+}
+
+@keyframes rotate-fan {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.fan-wing {
+  position: absolute;
+  width: 50px;
+  height: 130px;
+  left: 50%;
+  top: 50%;
+  transform-origin: center center;
+  border-radius: 50px 50px 0px 0px;
+  background: linear-gradient(
+    180deg,
+    rgba(32, 35, 50, 1) 0%,
+    rgba(45, 50, 70, 1) 30%,
+    rgba(60, 65, 82, 1) 70%,
+    rgba(74, 85, 104, 1) 100%
+  );
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.1);
+}
+
+.fan-wing-1 {
+  transform: translate(-50%, -50%) rotate(0deg) translateY(-75px);
+}
+
+.fan-wing-2 {
+  transform: translate(-50%, -50%) rotate(90deg) translateY(-75px);
+}
+
+.fan-wing-3 {
+  transform: translate(-50%, -50%) rotate(180deg) translateY(-75px);
+}
+
+.fan-wing-4 {
+  transform: translate(-50%, -50%) rotate(270deg) translateY(-75px);
+}
+
+.fan-center {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  background-color: #1A2332;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.fan-center-inner {
+  width: 40px;
+  height: 40px;
+  background-color: #2D3D52;
+  border-radius: 50%;
+}
+
+.fan-label {
+  color: white;
+  font-size: 14px;
+  background-color: rgba(30, 41, 57, 0.8);
+  padding: 4px 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+  margin-top: 10px;
+}
+
+@media (max-width: 767px) {
+  .fan-container {
+    width: 240px;
+  }
+
+  .fan-visual {
+    width: 240px;
+    height: 240px;
+  }
+
+  .fan-blades {
+    width: 200px;
+    height: 200px;
+  }
+
+  .fan-wing {
+    width: 40px;
+    height: 100px;
+  }
+
+  .fan-wing-1 {
+    transform: translate(-50%, -50%) rotate(0deg) translateY(-60px);
+  }
+
+  .fan-wing-2 {
+    transform: translate(-50%, -50%) rotate(90deg) translateY(-60px);
+  }
+
+  .fan-wing-3 {
+    transform: translate(-50%, -50%) rotate(180deg) translateY(-60px);
+  }
+
+  .fan-wing-4 {
+    transform: translate(-50%, -50%) rotate(270deg) translateY(-60px);
+  }
+
+  .fan-center {
+    width: 55px;
+    height: 55px;
+  }
+
+  .fan-center-inner {
+    width: 30px;
+    height: 30px;
+  }
+}

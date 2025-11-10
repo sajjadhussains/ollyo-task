@@ -1,0 +1,53 @@
+.light-container {
+  position: relative;
+  width: 320px;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.light-visual {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.light-image {
+  width: 200px;
+  height: auto;
+  filter: brightness(0.5);
+  transition: filter 0.3s ease;
+}
+
+.light-image.active {
+  filter: brightness(1.2) drop-shadow(0 0 30px rgba(255, 215, 0, 0.6));
+}
+
+.light-label {
+  color: white;
+  font-size: 14px;
+  background-color: rgba(30, 41, 57, 0.8);
+  padding: 4px 12px;
+  border-radius: 6px;
+  white-space: nowrap;
+  margin-top: 10px;
+}
+
+@media (max-width: 767px) {
+  .light-container {
+    width: 240px;
+  }
+
+  .light-visual {
+    width: 240px;
+    height: 240px;
+  }
+
+  .light-image {
+    width: 150px;
+  }
+}
