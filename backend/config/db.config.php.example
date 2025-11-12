@@ -1,0 +1,12 @@
+<?php
+// Database configuration example
+// Copy this file to db.config.php and update with your MySQL credentials
+
+return [
+    'host' => 'localhost',
+    'port' => '3306',
+    'database' => 'ollyo_task', // Change this to your database name
+    'username' => 'root', // Change this to your MySQL username
+    'password' => '', // Change this to your MySQL password
+];
+

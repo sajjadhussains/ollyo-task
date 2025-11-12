@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import * as React from 'react';
 import { ControlPanel } from "../ui/ControlPanel";
 import lightImageOff from "../../assets/images/light.png";
 import lightImageOn from "../../assets/images/light-on.png";
@@ -17,6 +18,8 @@ interface LightDeviceProps {
   label: string;
   isPowerOn: boolean;
   speed: number;
+  brightness?: number;
+  colorTemp?: string;
   onTogglePower: () => void;
   onSpeedChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onColorChange?: (color: string) => void;
@@ -26,19 +29,35 @@ export const LightDevice = ({
   label,
   isPowerOn,
   speed,
+  brightness: propBrightness,
+  colorTemp: propColorTemp,
   onTogglePower,
   onSpeedChange,
   onColorChange,
 }: LightDeviceProps) => {
-  const [selectedColor, setSelectedColor] = useState(COLOR_OPTIONS[0]);
+  // Use prop values if provided, otherwise use speed for brightness
+  const brightnessValue = propBrightness ?? speed;
+  const colorTempValue = propColorTemp ?? 'warm';
+  
+  // Find selected color from prop or default to warm
+  const initialColor = COLOR_OPTIONS.find(c => c.id === colorTempValue) || COLOR_OPTIONS[0];
+  const [selectedColor, setSelectedColor] = useState(initialColor);
+  
+  // Update selected color when prop changes
+  React.useEffect(() => {
+    const color = COLOR_OPTIONS.find(c => c.id === colorTempValue);
+    if (color) {
+      setSelectedColor(color);
+    }
+  }, [colorTempValue]);
   
   // Show lightImageOn when power is on, lightImageOff when power is off
   const lightImage = isPowerOn ? lightImageOn : lightImageOff;
 
-  // Calculate brightness and glow based on speed and selected color (only when power is on and speed > 0)
-  const brightness = isPowerOn && speed > 0 ? 0.5 + (speed / 100) * 0.7 : 0.5;
-  const glowIntensity = isPowerOn && speed > 0 ? (speed / 100) * 0.8 : 0;
-  const glowSize = isPowerOn && speed > 0 ? 20 + (speed / 100) * 40 : 0;
+  // Calculate brightness and glow based on brightnessValue and selected color (only when power is on and brightnessValue > 0)
+  const brightness = isPowerOn && brightnessValue > 0 ? 0.5 + (brightnessValue / 100) * 0.7 : 0.5;
+  const glowIntensity = isPowerOn && brightnessValue > 0 ? (brightnessValue / 100) * 0.8 : 0;
+  const glowSize = isPowerOn && brightnessValue > 0 ? 20 + (brightnessValue / 100) * 40 : 0;
   
   // Apply the selected color to the glow effect
   const glowColor = isPowerOn ? selectedColor.color : '#FFD700'; // Default to gold when off
@@ -80,7 +99,7 @@ export const LightDevice = ({
       </div>
       <ControlPanel
         isPowerOn={isPowerOn}
-        speed={speed}
+        speed={brightnessValue}
         onTogglePower={onTogglePower}
         onSpeedChange={onSpeedChange}
         speedLabel="Brightness"

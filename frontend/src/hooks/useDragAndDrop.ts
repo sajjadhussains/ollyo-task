@@ -23,6 +23,11 @@ export const useDragAndDrop = () => {
     setDraggedItem(null);
   };
 
+  const setDroppedItemDirectly = (item: MenuItem | null) => {
+    setDroppedItem(item);
+    setDraggedItem(null);
+  };
+
   const removeDevice = () => {
     setDroppedItem(null);
   };
@@ -33,6 +38,7 @@ export const useDragAndDrop = () => {
     handleDragStart,
     handleDragOver,
     handleDrop,
+    setDroppedItemDirectly,
     removeDevice,
   };
 };

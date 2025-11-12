@@ -7,8 +7,12 @@ interface DeviceCanvasProps {
   droppedItem: MenuItem | null;
   isPowerOn: boolean;
   speed: number;
+  brightness?: number;
+  colorTemp?: string;
   onTogglePower: () => void;
   onSpeedChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onBrightnessChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onColorTempChange?: (color: string) => void;
   onDragOver: (e: React.DragEvent) => void;
   onDrop: (e: React.DragEvent) => void;
 }
@@ -17,8 +21,12 @@ export const DeviceCanvas = ({
   droppedItem,
   isPowerOn,
   speed,
+  brightness,
+  colorTemp,
   onTogglePower,
   onSpeedChange,
+  onBrightnessChange,
+  onColorTempChange,
   onDragOver,
   onDrop,
 }: DeviceCanvasProps) => {
@@ -43,9 +51,12 @@ export const DeviceCanvas = ({
               <LightDevice
                 label={droppedItem.label}
                 isPowerOn={isPowerOn}
-                speed={speed}
+                speed={brightness ?? speed}
+                brightness={brightness}
+                colorTemp={colorTemp}
                 onTogglePower={onTogglePower}
-                onSpeedChange={onSpeedChange}
+                onSpeedChange={onBrightnessChange ?? onSpeedChange}
+                onColorChange={onColorTempChange}
               />
             )}
           </div>
