@@ -47,6 +47,7 @@ export const FanDevice = ({
         onTogglePower={onTogglePower}
         onSpeedChange={onSpeedChange}
         speedLabel="Speed"
+        disabled={!isPowerOn}
       />
     </div>
   );

@@ -13,7 +13,7 @@ import "../../styles/MainLayout.css";
 
 export default function MainLayout() {
   const [selectedKey, setSelectedKey] = useState<string | undefined>();
-  
+
   // Custom hooks for state management
   const {
     droppedItem,
@@ -23,12 +23,7 @@ export default function MainLayout() {
     removeDevice,
   } = useDragAndDrop();
 
-  const {
-    isPowerOn,
-    speed,
-    togglePower,
-    handleSpeedChange,
-  } = useDeviceState();
+  const { isPowerOn, speed, togglePower, handleSpeedChange } = useDeviceState();
 
   const {
     isOpen: isModalOpen,
@@ -47,6 +42,7 @@ export default function MainLayout() {
 
   const handleSavePreset = () => {
     if (presetName.trim() === "") return;
+    console.log(isPowerOn, speed, droppedItem, presetName)
     closeModal();
     displayToast();
   };

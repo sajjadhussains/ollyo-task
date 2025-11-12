@@ -27,6 +27,58 @@
   padding: 4px 12px;
   border-radius: 6px;
   white-space: nowrap;
-  margin-top: 10px;
+  margin: 10px 0;
 }
 
+.color-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin: 15px 0;
+  width: 100%;
+}
+
+.color-option {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  opacity: 0.9;
+}
+
+.color-option:hover:not(.disabled) {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+.color-option.active {
+  border-color: #fff;
+  box-shadow: 0 0 0 2px #3b82f6;
+  opacity: 1;
+}
+
+.color-option.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  filter: grayscale(0.8);
+}
+
+.color-option::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.color-option.active::after {
+  border-color: rgba(255, 255, 255, 0.3);
+}
