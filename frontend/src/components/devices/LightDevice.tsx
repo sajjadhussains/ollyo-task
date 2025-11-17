@@ -84,19 +84,6 @@ export const LightDevice = ({
       </div>
       <div className="light-label">{label}</div>
 
-      <div className="color-options">
-        {COLOR_OPTIONS.map((color) => (
-          <button
-            key={color.id}
-            className={`color-option ${selectedColor.id === color.id ? 'active' : ''} ${!isPowerOn ? 'disabled' : ''}`}
-            style={{ backgroundColor: color.color }}
-            onClick={() => isPowerOn && handleColorChange(color)}
-            disabled={!isPowerOn}
-            title={color.name}
-            aria-label={`Set color to ${color.name}`}
-          />
-        ))}
-      </div>
       <ControlPanel
         isPowerOn={isPowerOn}
         speed={brightnessValue}
@@ -104,6 +91,14 @@ export const LightDevice = ({
         onSpeedChange={onSpeedChange}
         speedLabel="Brightness"
         disabled={!isPowerOn}
+        colorOptions={COLOR_OPTIONS}
+        selectedColorTemp={colorTempValue}
+        onColorChange={(colorId) => {
+          const color = COLOR_OPTIONS.find(c => c.id === colorId);
+          if (color) {
+            handleColorChange(color);
+          }
+        }}
       />
     </div>
   );

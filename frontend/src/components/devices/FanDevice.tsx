@@ -10,7 +10,7 @@ interface FanDeviceProps {
 }
 
 export const FanDevice = ({
-  label,
+  // label,
   isPowerOn,
   speed,
   onTogglePower,
@@ -39,7 +39,7 @@ export const FanDevice = ({
           <div className="fan-center-inner"></div>
         </div>
       </div>
-      <div className="fan-label">{label}</div>
+      {/* <div className="fan-label">{label}</div> */}
 
       <ControlPanel
         isPowerOn={isPowerOn}
