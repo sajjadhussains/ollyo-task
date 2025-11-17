@@ -35,8 +35,8 @@
 
 .fan-wing {
   position: absolute;
-  width: 50px;
-  height: 130px;
+  width: 56px;
+  height: 134px;
   left: 50%;
   top: 50%;
   transform-origin: center center;
@@ -48,32 +48,35 @@
     rgba(60, 65, 82, 1) 70%,
     rgba(74, 85, 104, 1) 100%
   );
-  box-shadow:
-    0 2px 8px rgba(0, 0, 0, 0.3),
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3),
     inset 0 2px 4px rgba(255, 255, 255, 0.1);
 }
 
 .fan-wing-1 {
-  transform: translate(-50%, -50%) rotate(0deg) translateY(-75px);
+  transform: translate(-50%, -50%) rotate(0deg) translateY(-95px);
 }
 
 .fan-wing-2 {
-  transform: translate(-50%, -50%) rotate(90deg) translateY(-75px);
+  transform: translate(-50%, -50%) rotate(90deg) translateY(-95px);
 }
 
 .fan-wing-3 {
-  transform: translate(-50%, -50%) rotate(180deg) translateY(-75px);
+  transform: translate(-50%, -50%) rotate(180deg) translateY(-95px);
 }
 
 .fan-wing-4 {
-  transform: translate(-50%, -50%) rotate(270deg) translateY(-75px);
+  transform: translate(-50%, -50%) rotate(270deg) translateY(-95px);
 }
 
 .fan-center {
   position: absolute;
-  width: 70px;
-  height: 70px;
-  background-color: #1A2332;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(
+    135deg,
+    rgba(74, 85, 101, 1),
+    rgba(30, 41, 57, 1)
+  );
   border-radius: 50%;
   top: 50%;
   left: 50%;
@@ -86,9 +89,13 @@
 }
 
 .fan-center-inner {
-  width: 40px;
-  height: 40px;
-  background-color: #2D3D52;
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(
+    135deg,
+    rgba(53.94074249267578, 65.03254699707031, 82.7998275756836, 1),
+    rgba(16.45403480529785, 23.904104232788086, 39.98002624511719, 1) 100%
+  );
   border-radius: 50%;
 }
 
