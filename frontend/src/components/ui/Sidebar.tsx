@@ -22,7 +22,7 @@ export const Sidebar = ({
 }: SidebarProps) => {
   return (
     <aside className="sidebar">
-      <h2 className="sidebar-title">Devices</h2>
+      <p className="sidebar-title">Devices</p>
       <ul className="menu-vertical">
         {menuItems.map((item) => (
           <li
@@ -38,7 +38,14 @@ export const Sidebar = ({
         ))}
       </ul>
 
-      {presets.length > 0 && (
+      {presets.length === 0 ? (
+        <div className="saved-presets">
+          <p className="sidebar-title">Saved Presets</p>
+          <div className="noting-added">
+            <span>Nothing Added Yet</span>
+          </div>
+        </div>
+      ) : (
         <>
           <h2 className="sidebar-title" style={{ marginTop: "2rem" }}>
             Presets
@@ -56,7 +63,10 @@ export const Sidebar = ({
                   className="preset-delete-btn"
                   onClick={(e) => {
                     e.stopPropagation();
-                    if (preset.id && window.confirm(`Delete preset "${preset.name}"?`)) {
+                    if (
+                      preset.id &&
+                      window.confirm(`Delete preset "${preset.name}"?`)
+                    ) {
                       onPresetDelete(preset.id);
                     }
                   }}

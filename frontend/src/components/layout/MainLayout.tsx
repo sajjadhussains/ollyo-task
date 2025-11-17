@@ -11,7 +11,7 @@ import { useToast } from "../../hooks/useToast";
 import { useDevices } from "../../contexts/DeviceContext";
 import { MENU_ITEMS, DEVICE_TYPES } from "../../constants/devices";
 import { normalizeDevice } from "../../utils/deviceNormalizer";
-import type { MenuItem } from "../../types/device.types";
+// import type { MenuItem } from "../../types/device.types";
 import type { Preset } from "../../lib/api";
 import "../../styles/MainLayout.css";
 
@@ -20,7 +20,7 @@ export default function MainLayout() {
   const [toastMessage, setToastMessage] = useState("Preset saved");
 
   // Device context
-  const { presets, addPreset, deletePreset, error: contextError } = useDevices();
+  const { presets, addPreset, deletePreset } = useDevices();
 
   // Custom hooks for state management
   const {
@@ -33,7 +33,7 @@ export default function MainLayout() {
   } = useDragAndDrop();
 
   const {
-    settings,
+    // settings,
     isPowerOn,
     speed,
     brightness,
