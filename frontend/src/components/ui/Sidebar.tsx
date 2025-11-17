@@ -20,9 +20,14 @@ export const Sidebar = ({
   onPresetDragStart,
   onPresetDelete,
 }: SidebarProps) => {
+  const lightIcon = menuItems[0].icon; // Light icon
+  const fanIcon = menuItems[1]?.icon || menuItems[0].icon; // Fan icon fallback
+
   return (
     <aside className="sidebar">
       <p className="sidebar-title">Devices</p>
+
+      {/* Devices */}
       <ul className="menu-vertical">
         {menuItems.map((item) => (
           <li
@@ -38,6 +43,7 @@ export const Sidebar = ({
         ))}
       </ul>
 
+      {/* Presets */}
       {presets.length === 0 ? (
         <div className="saved-presets">
           <p className="sidebar-title">Saved Presets</p>
@@ -50,6 +56,7 @@ export const Sidebar = ({
           <h2 className="sidebar-title" style={{ marginTop: "2rem" }}>
             Presets
           </h2>
+
           <ul className="menu-vertical">
             {presets.map((preset) => (
               <li
@@ -58,6 +65,17 @@ export const Sidebar = ({
                 draggable
                 onDragStart={(e) => onPresetDragStart(e, preset)}
               >
+                {/* Device Icon Logic */}
+                <img
+                  src={preset.devices?.[0]?.type === "1" ? lightIcon : fanIcon}
+                  alt={
+                    preset.devices?.[0]?.type === "1"
+                      ? "Light Device"
+                      : "Fan Device"
+                  }
+                  className="menu-item-icon"
+                />
+
                 <span className="preset-name">{preset.name}</span>
                 <button
                   className="preset-delete-btn"
