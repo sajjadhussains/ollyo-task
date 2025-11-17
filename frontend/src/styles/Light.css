@@ -30,7 +30,7 @@
   margin: 10px 0;
 }
 
-.color-options {
+/* .color-options {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -81,4 +81,4 @@
 
 .color-option.active::after {
   border-color: rgba(255, 255, 255, 0.3);
-}
+} */

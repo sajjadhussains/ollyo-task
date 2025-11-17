@@ -43,7 +43,7 @@ export const ControlPanel = ({
           <div className="toggle-slider"></div>
         </div>
       </div>
-      
+
       {showColorOptions && (
         <div className="color-temperature-section">
           <span className="control-label">Color Temperature</span>
@@ -51,7 +51,9 @@ export const ControlPanel = ({
             {colorOptions.map((color) => (
               <button
                 key={color.id}
-                className={`color-option ${selectedColorTemp === color.id ? 'active' : ''} ${!isPowerOn ? 'disabled' : ''}`}
+                className={`color-option ${
+                  selectedColorTemp === color.id ? "active" : ""
+                } ${!isPowerOn ? "disabled" : ""}`}
                 style={{ backgroundColor: color.color }}
                 onClick={() => isPowerOn && onColorChange?.(color.id)}
                 disabled={!isPowerOn}
@@ -62,19 +64,20 @@ export const ControlPanel = ({
           </div>
         </div>
       )}
-      
+
       <div className="control-row">
         <span className="control-label">{speedLabel}</span>
         <span className="speed-value">{speed}%</span>
       </div>
       <input
         type="range"
-        className={`speed-slider ${disabled ? 'disabled' : ''}`}
+        className={`speed-slider ${disabled ? "disabled" : ""}`}
         min="0"
         max="100"
         value={speed}
         onChange={onSpeedChange}
         disabled={disabled}
+        style={{ "--slider-value": `${speed}%` } as React.CSSProperties}
       />
     </div>
   );
