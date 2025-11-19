@@ -242,7 +242,7 @@ App
     └── MainLayout
         ├── Sidebar
         │   ├── Device Menu Items
-        │   └── Preset List (with delete)
+        │   └── PresetList (Reusable component)
         ├── Header
         │   ├── Title
         │   ├── Save/Clear Actions
@@ -270,6 +270,7 @@ App
 #### Local State (Custom Hooks)
 - **useDeviceState**: Device settings (power, speed, brightness, colorTemp)
 - **useDragAndDrop**: Drag and drop state (draggedItem, droppedItem)
+- **usePresetOperations**: Preset logic (save, delete, drop)
 - **useModal**: Modal visibility and input state
 - **useToast**: Toast notification state
 
@@ -291,14 +292,27 @@ App
 - **FanDevice**: Fan visualization with rotation animation
 - **LightDevice**: Light visualization with glow effects
 - Both use `ControlPanel` for unified controls
+- Responsive design adapts to mobile screens
 
-#### 4. API Service Layer (`lib/api.ts`)
+#### 4. PresetList (`components/ui/PresetList.tsx`)
+- Reusable component for displaying saved presets
+- Handles preset drag-start and delete events
+- Responsive layout (Sidebar on desktop, Top bar on mobile)
+- Hover effects for delete actions
+
+#### 5. usePresetOperations (`hooks/usePresetOperations.ts`)
+- Custom hook encapsulating all preset-related logic
+- Handles API calls (save, delete) and state updates
+- Manages drag-and-drop logic for presets
+- Improves code separation in MainLayout
+
+#### 6. API Service Layer (`lib/api.ts`)
 - Type-safe API functions
 - Error handling
 - JSON parsing/stringification
 - Base URL configuration
 
-#### 5. Device Normalizer (`utils/deviceNormalizer.ts`)
+#### 7. Device Normalizer (`utils/deviceNormalizer.ts`)
 - Case-insensitive device type comparison
 - Default settings application
 - Database JSON parsing helpers

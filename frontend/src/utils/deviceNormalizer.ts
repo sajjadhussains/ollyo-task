@@ -8,16 +8,13 @@ export interface NormalizedDevice {
   settings: Record<string, any>;
 }
 
-/**
- * Normalizes device type with case-insensitive comparison
- * and ensures proper default settings
- */
+
 export function normalizeDevice(device: Partial<Device> | any): NormalizedDevice {
   if (!device || !device.type) {
     throw new Error('Device type is required');
   }
 
-  // Normalize type (case-insensitive comparison)
+
   const typeLower = device.type.toLowerCase().trim();
   let normalizedType: string;
 
@@ -26,10 +23,9 @@ export function normalizeDevice(device: Partial<Device> | any): NormalizedDevice
   } else if (typeLower === 'fan' || typeLower === '2') {
     normalizedType = DEVICE_TYPES.FAN;
   } else {
-    normalizedType = device.type; // Keep original if not recognized
+    normalizedType = device.type;
   }
 
-  // Get default settings based on type
   let defaultSettings: Record<string, any>;
   if (normalizedType === DEVICE_TYPES.LIGHT) {
     defaultSettings = {
@@ -46,7 +42,6 @@ export function normalizeDevice(device: Partial<Device> | any): NormalizedDevice
     defaultSettings = {};
   }
 
-  // Merge provided settings with defaults
   const settings = {
     ...defaultSettings,
     ...(device.settings || {}),
@@ -59,9 +54,6 @@ export function normalizeDevice(device: Partial<Device> | any): NormalizedDevice
   };
 }
 
-/**
- * Parses device from database (JSON settings may be string)
- */
 export function parseDeviceFromDb(device: any): Device {
   let settings = device.settings;
   if (typeof settings === 'string') {
@@ -79,9 +71,6 @@ export function parseDeviceFromDb(device: any): Device {
   };
 }
 
-/**
- * Parses preset from database (JSON devices may be string)
- */
 export function parsePresetFromDb(preset: any): any {
   let devices = preset.devices;
   if (typeof devices === 'string') {

@@ -26,6 +26,10 @@
   margin-left: 10px;
 }
 
+.preset-title {
+  margin-top: 2rem;
+}
+
 .menu-vertical {
   display: flex;
   flex-direction: column;
@@ -56,9 +60,9 @@
   margin-right: 8px;
 }
 
-.menu-item:hover {
+/* .menu-item:hover {
   background-color: #ff6666;
-}
+} */
 
 .menu-item.active {
   background-color: #646f7f;
@@ -168,6 +172,16 @@
   border-bottom: 1px solid rgba(54, 65, 83, 1);
 }
 
+.mobile-title-section .saved-presets-container {
+  margin-top: 0;
+}
+
+.mobile-title-section .preset-title {
+  margin-top: 0;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
 .mobile-title {
   color: white;
   font-size: 18px;
@@ -210,6 +224,7 @@
   justify-content: center;
   align-items: center;
   padding: 40px 20px;
+  width: 100%;
 }
 
 .remove-btn {
@@ -238,6 +253,7 @@
 .saved-presets {
   margin-top: 32px;
 }
+
 .noting-added {
   margin-top: 16px;
   padding-left: 13px;
@@ -247,6 +263,7 @@
   border: 1px solid rgba(54, 65, 83, 1);
   border-radius: 10px;
 }
+
 @media (max-width: 767px) {
   .sidebar {
     display: none;
@@ -263,5 +280,20 @@
 
   .mobile-title-section {
     display: block;
+  }
+
+  .content {
+    padding: 16px;
+  }
+
+  .content-inner {
+    padding: 16px;
+    min-height: auto;
+    /* Allow content to dictate height on mobile */
+  }
+
+  .fans-grid {
+    gap: 20px;
+    padding: 20px 10px;
   }
 }

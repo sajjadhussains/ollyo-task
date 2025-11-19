@@ -1,7 +1,7 @@
 .success-toast {
   position: fixed;
-  top: 80px;
-  left: 50%;
+  top: 120px;
+  left: 60%;
   transform: translateX(-50%);
   background-color: #1E2939;
   border: 1px solid rgba(54, 65, 83, 1);
@@ -19,6 +19,7 @@
     opacity: 0;
     transform: translateX(-50%) translateY(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateX(-50%) translateY(0);

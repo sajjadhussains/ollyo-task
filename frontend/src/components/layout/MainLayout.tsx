@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { Sidebar } from "../ui/Sidebar";
 import { Header } from "../ui/Header";
 import { Modal } from "../ui/Modal";
@@ -8,19 +8,26 @@ import { useDragAndDrop } from "../../hooks/useDragAndDrop";
 import { useDeviceState } from "../../hooks/useDeviceState";
 import { useModal } from "../../hooks/useModal";
 import { useToast } from "../../hooks/useToast";
-import { useDevices } from "../../contexts/DeviceContext";
+import {
+  useGetPresetsQuery,
+} from "../../store/api/deviceApi";
 import { MENU_ITEMS, DEVICE_TYPES } from "../../constants/devices";
-import { normalizeDevice } from "../../utils/deviceNormalizer";
-// import type { MenuItem } from "../../types/device.types";
+import { usePresetOperations } from "../../hooks/usePresetOperations";
+import type { MenuItem } from "../../types/device.types";
 import type { Preset } from "../../lib/api";
+import { PresetList } from "../ui/PresetList";
 import "../../styles/MainLayout.css";
 
 export default function MainLayout() {
   const [selectedKey, setSelectedKey] = useState<string | undefined>();
   const [toastMessage, setToastMessage] = useState("Preset saved");
 
-  // Device context
-  const { presets, addPreset, deletePreset } = useDevices();
+  // RTK Query hooks with automatic caching
+  const {
+    data: presets = [],
+    isLoading: isLoadingPresets,
+    error: presetsError,
+  } = useGetPresetsQuery();
 
   // Custom hooks for state management
   const {
@@ -33,7 +40,6 @@ export default function MainLayout() {
   } = useDragAndDrop();
 
   const {
-    // settings,
     isPowerOn,
     speed,
     brightness,
@@ -61,114 +67,25 @@ export default function MainLayout() {
     setSelectedKey(key);
   };
 
-  const handleSavePreset = async () => {
-    if (presetName.trim() === "") return;
-
-    if (!droppedItem) {
-      setToastMessage("Please add a device first");
-      displayToast();
-      return;
-    }
-
-    try {
-      // Create device configuration from current state
-      const deviceConfig = normalizeDevice({
-        type: droppedItem.key,
-        name: droppedItem.label,
-        settings: {
-          power: isPowerOn,
-          ...(droppedItem.key === DEVICE_TYPES.LIGHT
-            ? { brightness, colorTemp }
-            : { speed }),
-        },
-      });
-
-      // Create preset with device configuration
-      await addPreset({
-        name: presetName.trim(),
-        devices: [deviceConfig],
-      });
-
-      setToastMessage("Preset saved successfully");
-      closeModal();
-      displayToast();
-    } catch (err) {
-      const errorMessage =
-        err instanceof Error ? err.message : "Failed to save preset";
-      setToastMessage(errorMessage);
-      displayToast();
-    }
-  };
-
   const handlePresetDragStart = (e: React.DragEvent, preset: Preset) => {
     e.dataTransfer.effectAllowed = "move";
     e.dataTransfer.setData("preset", JSON.stringify(preset));
   };
 
-  const handlePresetDrop = useCallback(
-    (e: React.DragEvent) => {
-      e.preventDefault();
-      const presetData = e.dataTransfer.getData("preset");
-      if (!presetData) return;
-
-      try {
-        const preset: Preset = JSON.parse(presetData);
-        if (!preset.devices || preset.devices.length === 0) {
-          setToastMessage("Preset has no devices");
-          displayToast();
-          return;
-        }
-
-        // Load first device from preset
-        const device = preset.devices[0];
-        const normalizedDevice = normalizeDevice(device);
-
-        // Find matching menu item
-        const menuItem = MENU_ITEMS.find(
-          (item) => item.key === normalizedDevice.type
-        );
-
-        if (!menuItem) {
-          setToastMessage("Device type not found");
-          displayToast();
-          return;
-        }
-
-        // Set the dropped item directly
-        setDroppedItemDirectly(menuItem);
-
-        // Update device state with preset settings
-        const settings = normalizedDevice.settings || {};
-        updateSettings({
-          power: settings.power || false,
-          speed: settings.speed ?? 0,
-          brightness: settings.brightness ?? 50,
-          colorTemp: settings.colorTemp || "warm",
-        });
-
-        setToastMessage(`Preset "${preset.name}" loaded`);
-        displayToast();
-      } catch (err) {
-        console.error("Error loading preset:", err);
-        setToastMessage("Failed to load preset");
-        displayToast();
-      }
-    },
-    [setDroppedItemDirectly, updateSettings, displayToast]
-  );
-
-  const handlePresetDelete = async (id: number) => {
-    try {
-      await deletePreset(id);
-      setToastMessage("Preset deleted");
-      displayToast();
-    } catch (err) {
-      const errorMessage =
-        err instanceof Error ? err.message : "Failed to delete preset";
-      setToastMessage(errorMessage);
-      displayToast();
-    }
-  };
+  const { handleSavePreset, handlePresetDelete, handlePresetDrop } =
+    usePresetOperations({
+      presetName,
+      droppedItem,
+      isPowerOn,
+      speed,
+      brightness,
+      colorTemp,
+      setToastMessage,
+      displayToast,
+      closeModal,
+      setDroppedItemDirectly,
+      updateSettings,
+    });
 
   const handleClear = () => {
     removeDevice();
@@ -215,7 +132,15 @@ export default function MainLayout() {
         />
 
         <div className="mobile-title-section">
-          <h2 className="mobile-title">Testing Canvas</h2>
+          {presets.length > 0 && (
+            <PresetList
+              presets={presets}
+              lightIcon={MENU_ITEMS[0].icon}
+              fanIcon={MENU_ITEMS[1]?.icon || MENU_ITEMS[0].icon}
+              onDragStart={handlePresetDragStart}
+              onDelete={handlePresetDelete}
+            />
+          )}
         </div>
 
         <main className="content">

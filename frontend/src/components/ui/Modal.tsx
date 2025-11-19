@@ -24,17 +24,19 @@ export const Modal = ({
       <div className="modal-content">
         <div className="modal-header">
           <h3 className="modal-title">{title}</h3>
+
           <button className="modal-close" onClick={onCancel}>
             ×
           </button>
         </div>
+        <div className="horizontal-border"></div>
         <div className="modal-body">
           <div className="form-group">
-            <label className="form-label">Name *</label>
+            <label className="form-label">Name</label>
             <input
               type="text"
               className="form-input"
-              placeholder="Enter preset name"
+              placeholder="Name It"
               value={value}
               onChange={(e) => onValueChange(e.target.value)}
               autoFocus

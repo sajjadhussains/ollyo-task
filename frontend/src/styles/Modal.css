@@ -12,19 +12,19 @@
 }
 
 .modal-content {
-  background-color: #1E2939;
+  background-color: #1e2939;
   border-radius: 12px;
-  padding: 24px;
   width: 90%;
   max-width: 450px;
   position: relative;
+  border: 1px solid rgba(54, 65, 83, 1);
 }
 
 .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  padding: 24px;
 }
 
 .modal-title {
@@ -54,6 +54,7 @@
 
 .modal-body {
   margin-bottom: 20px;
+  padding: 24px;
 }
 
 .form-group {
@@ -70,7 +71,7 @@
 .form-input {
   width: 100%;
   padding: 10px 12px;
-  background-color: #2D3D52;
+  background-color: #2d3d52;
   border: 1px solid rgba(54, 65, 83, 1);
   border-radius: 6px;
   color: white;
@@ -80,7 +81,7 @@
 }
 
 .form-input:focus {
-  border-color: #4299E1;
+  border-color: #4299e1;
 }
 
 .form-input::placeholder {
@@ -97,6 +98,8 @@
   display: flex;
   justify-content: flex-end;
   gap: 12px;
+  margin-bottom: 24px;
+  margin-right: 24px;
 }
 
 .modal-btn {
@@ -120,16 +123,20 @@
 }
 
 .modal-btn-save {
-  background-color: #4299E1;
+  background-color: #4299e1;
   color: white;
 }
 
 .modal-btn-save:hover {
-  background-color: #3182CE;
+  background-color: #3182ce;
 }
 
 .modal-btn-save:disabled {
-  background-color: #4A5568;
+  background-color: #4a5568;
   cursor: not-allowed;
   opacity: 0.6;
+}
+
+.horizontal-border {
+  border: 1px solid rgba(54, 65, 83, 1);
 }

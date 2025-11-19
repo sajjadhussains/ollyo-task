@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { DEVICE_TYPES } from "../constants/devices";
+// import { DEVICE_TYPES } from "../constants/devices";
 
 export interface DeviceSettings {
   power: boolean;
@@ -15,7 +15,7 @@ export const useDeviceState = (initialSettings?: DeviceSettings) => {
     power: false,
     speed: 0,
     brightness: 50,
-    colorTemp: 'warm',
+    colorTemp: "warm",
   };
 
   const [settings, setSettings] = useState<DeviceSettings>(
@@ -50,7 +50,7 @@ export const useDeviceState = (initialSettings?: DeviceSettings) => {
   const isPowerOn = settings.power;
   const speed = settings.speed ?? 0;
   const brightness = settings.brightness ?? 50;
-  const colorTemp = settings.colorTemp ?? 'warm';
+  const colorTemp = settings.colorTemp ?? "warm";
 
   return {
     settings,
