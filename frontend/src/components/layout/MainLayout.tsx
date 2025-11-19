@@ -13,7 +13,6 @@ import {
 } from "../../store/api/deviceApi";
 import { MENU_ITEMS, DEVICE_TYPES } from "../../constants/devices";
 import { usePresetOperations } from "../../hooks/usePresetOperations";
-import type { MenuItem } from "../../types/device.types";
 import type { Preset } from "../../lib/api";
 import { PresetList } from "../ui/PresetList";
 import "../../styles/MainLayout.css";
@@ -25,8 +24,6 @@ export default function MainLayout() {
   // RTK Query hooks with automatic caching
   const {
     data: presets = [],
-    isLoading: isLoadingPresets,
-    error: presetsError,
   } = useGetPresetsQuery();
 
   // Custom hooks for state management

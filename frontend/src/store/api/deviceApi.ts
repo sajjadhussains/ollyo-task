@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type { Device, Preset } from "../../lib/api";
 import { parseDeviceFromDb, parsePresetFromDb } from "../../utils/deviceNormalizer";
 
-const API_BASE = "http://device-simulator.atwebpages.com/api";
+const API_BASE = "/api";
 
 interface ApiResponse<T> {
   success: boolean;
@@ -44,9 +44,9 @@ export const deviceApi = createApi({
       providesTags: (result) =>
         result
           ? [
-              ...result.map(({ id }) => ({ type: "Device" as const, id })),
-              { type: "Device", id: "LIST" },
-            ]
+            ...result.map(({ id }) => ({ type: "Device" as const, id })),
+            { type: "Device", id: "LIST" },
+          ]
           : [{ type: "Device", id: "LIST" }],
       // Cache for 60 seconds
       keepUnusedDataFor: 60,
@@ -112,9 +112,9 @@ export const deviceApi = createApi({
       providesTags: (result) =>
         result
           ? [
-              ...result.map(({ id }) => ({ type: "Preset" as const, id })),
-              { type: "Preset", id: "LIST" },
-            ]
+            ...result.map(({ id }) => ({ type: "Preset" as const, id })),
+            { type: "Preset", id: "LIST" },
+          ]
           : [{ type: "Preset", id: "LIST" }],
       // Cache for 60 seconds
       keepUnusedDataFor: 60,

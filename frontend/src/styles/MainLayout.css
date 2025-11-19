@@ -136,8 +136,10 @@
 
 .header-clear-btn {
   background-color: transparent;
-  color: #ff6666;
-  border: 1px solid #ff6666;
+  border: 1px solid rgba(54, 65, 83, 1);
+  border-radius: 8px;
+  color: #D1D5DC;
+
 }
 
 .header-clear-btn:hover {
@@ -145,7 +147,7 @@
 }
 
 .header-save-btn {
-  background-color: #4299e1;
+  background-color: rgba(43, 127, 255, 1);
   color: white;
 }
 

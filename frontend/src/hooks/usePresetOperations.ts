@@ -67,9 +67,20 @@ export const usePresetOperations = ({
             setToastMessage("Preset saved successfully");
             closeModal();
             displayToast();
-        } catch (err) {
-            const errorMessage =
-                err instanceof Error ? err.message : "Failed to save preset";
+        } catch (err: any) {
+            console.error("Save preset error:", err);
+            let errorMessage = "Failed to save preset";
+
+            if (err?.status === "FETCH_ERROR") {
+                errorMessage = "Network Error: Check API URL or CORS";
+            } else if (err?.status === 404) {
+                errorMessage = "API Endpoint Not Found (404)";
+            } else if (err?.data?.error) {
+                errorMessage = err.data.error;
+            } else if (err?.message) {
+                errorMessage = err.message;
+            }
+
             setToastMessage(errorMessage);
             displayToast();
         }
