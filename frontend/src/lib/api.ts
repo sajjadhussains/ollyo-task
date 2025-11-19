@@ -24,12 +24,12 @@ export interface ApiResponse<T> {
   message?: string;
 }
 
-const API_BASE = '/api';
+const API_BASE = "http://device-simulator.atwebpages.com/api";
 
 async function handleResponse<T>(response: Response): Promise<ApiResponse<T>> {
   const data = await response.json();
   if (!response.ok) {
-    throw new Error(data.error || 'An error occurred');
+    throw new Error(data.error || "An error occurred");
   }
   return data;
 }
@@ -42,35 +42,37 @@ export const devicesApi = {
     return result.data || [];
   },
 
-  async create(device: Omit<Device, 'id' | 'created_at' | 'updated_at'>): Promise<Device> {
+  async create(
+    device: Omit<Device, "id" | "created_at" | "updated_at">
+  ): Promise<Device> {
     const response = await fetch(`${API_BASE}/devices.php`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(device),
     });
     const result = await handleResponse<Device>(response);
-    if (!result.data) throw new Error('Failed to create device');
+    if (!result.data) throw new Error("Failed to create device");
     return result.data;
   },
 
   async update(id: number, settings: Record<string, any>): Promise<Device> {
     const response = await fetch(`${API_BASE}/devices.php`, {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ id, settings }),
     });
     const result = await handleResponse<Device>(response);
-    if (!result.data) throw new Error('Failed to update device');
+    if (!result.data) throw new Error("Failed to update device");
     return result.data;
   },
 
   async delete(id: number): Promise<void> {
     const response = await fetch(`${API_BASE}/devices.php?id=${id}`, {
-      method: 'DELETE',
+      method: "DELETE",
     });
     await handleResponse<void>(response);
   },
@@ -84,24 +86,25 @@ export const presetsApi = {
     return result.data || [];
   },
 
-  async create(preset: Omit<Preset, 'id' | 'created_at' | 'updated_at'>): Promise<Preset> {
+  async create(
+    preset: Omit<Preset, "id" | "created_at" | "updated_at">
+  ): Promise<Preset> {
     const response = await fetch(`${API_BASE}/presets.php`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(preset),
     });
     const result = await handleResponse<Preset>(response);
-    if (!result.data) throw new Error('Failed to create preset');
+    if (!result.data) throw new Error("Failed to create preset");
     return result.data;
   },
 
   async delete(id: number): Promise<void> {
     const response = await fetch(`${API_BASE}/presets.php?id=${id}`, {
-      method: 'DELETE',
+      method: "DELETE",
     });
     await handleResponse<void>(response);
   },
 };
-
